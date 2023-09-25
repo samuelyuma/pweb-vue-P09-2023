@@ -1,6 +1,6 @@
-# praktikum-modul1
+# pweb-vue-AB_09-2023
 
-This template should help get you started developing with Vue 3 in Vite.
+Repositori praktikum modul 1 mata kuliah Pemrograman Website.
 
 ## Recommended IDE Setup
 
@@ -27,3 +27,5 @@ npm run dev
 ```sh
 npm run build
 ```
+
+=======
