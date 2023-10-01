@@ -59,9 +59,6 @@ export default {
   },
   mounted() {
     this.name = localStorage.getItem('name');
-    
-    localStorage.setItem('categories_local', JSON.stringify(categories));
-    const categories_local = JSON.parse(localStorage.getItem('categories_local'));
-  }
+  },
 };
 </script>
