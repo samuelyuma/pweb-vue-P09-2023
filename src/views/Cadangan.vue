@@ -3,12 +3,8 @@
     <section class="user">
       <h2 class="font-exo font-bold text-gray-800 text-4xl">
         Good luck for today,
-        <input
-          type="text"
-          placeholder="your name here"
-          v-model="name"
-          class="py-3 px-2 border-b-2 border-gray-800 mr-4 active:border-0 focus:border-0"
-        />!
+        <input type="text" placeholder="your name here" v-model="name"
+          class="py-3 px-2 border-b-2 border-gray-800 mr-4 active:border-0 focus:border-0" />!
       </h2>
     </section>
 
@@ -23,23 +19,14 @@
 
       <form @submit.prevent="addTask">
         <h4>What do you plan to do?</h4>
-        <input
-          type="text"
-          placeholder="Ex. Punya pacar"
-          v-model="content_input"
-          class="border-gray-300 border-2 rounded-md px-3 py-2 shadow-md"
-        />
+        <input type="text" placeholder="Ex. Punya pacar" v-model="content_input"
+          class="border-gray-300 border-2 rounded-md px-3 py-2 shadow-md" />
 
         <h4>Select a category</h4>
 
         <div class="category">
           <label v-for="category in categories" :key="category">
-            <input
-              type="radio"
-              :name="'category-' + category"
-              :value="category"
-              v-model="category_input"
-            />
+            <input type="radio" :name="'category-' + category" :value="category" v-model="category_input" />
             <span :class="`bubble ${category}`"></span>
             <div>{{ category }}</div>
           </label>
@@ -47,21 +34,12 @@
 
         <div class="category">
           <label>
-            <input
-              type="radio"
-              name="category"
-              value="other"
-              v-model="category_input"
-            />
+            <input type="radio" name="category" value="other" v-model="category_input" />
             <span class="bubble other"></span>
             <div>Other</div>
           </label>
-          <input
-            type="text"
-            placeholder="Add a new category"
-            v-model="category_custom"
-            v-if="category_input === 'other'"
-          />
+          <input type="text" placeholder="Add a new category" v-model="category_custom"
+            v-if="category_input === 'other'" />
           <button @click="addCategory">Add category</button>
         </div>
 
@@ -73,10 +51,7 @@
       <h3>MY TO DO LIST</h3>
 
       <div class="list">
-        <div
-          v-for="task in sortedTodo"
-          :class="`todo-item ${task.done && 'done'}`"
-        >
+        <div v-for="task in sortedTodo" :class="`todo-item ${task.done && 'done'}`">
           <label>
             <input type="checkbox" v-model="task.done" />
             <span :class="`bubble ${task.category}`"></span>
