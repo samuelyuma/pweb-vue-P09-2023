@@ -1,5 +1,6 @@
 <template>
-  <main class="mx-32 my-20 font-poppins">
+  <NavbarComponent />
+  <main class="mx-32 my-10 font-poppins">
     <section class="flex">
       <input
         type="text"
@@ -17,7 +18,8 @@
           v-model="category_custom"
           class="w-auto border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-xl text-slate-600 px-3 py-2 focus:ring-0 focus:border-transparent focus:outline-slate-400"
         />
-        <button @click="addCategory"
+        <button
+          @click="addCategory"
           class="text-white font-medium text-xl px-12 py-2 rounded-xl bg-purple-500"
         >
           Add
@@ -27,17 +29,23 @@
 
     <h3 class="mt-12 mb-7 font-medium text-4xl">Categories:</h3>
     <section class="grid grid-cols-4 gap-10">
-      <CategoryCard v-for="category in categories" :key="category" :categories="category" />
+      <CategoryCard
+        v-for="category in categories"
+        :key="category"
+        :categories="category"
+      />
     </section>
   </main>
 </template>
 
 <script>
 import CategoryCard from '../components/CategoryCard.vue';
+import NavbarComponent from '../components/NavbarComponent.vue';
 
 export default {
   components: {
     CategoryCard,
+    NavbarComponent,
   },
   data: () => {
     return {
