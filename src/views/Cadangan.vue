@@ -32,7 +32,7 @@
 
         <h4>Select a category</h4>
 
-        <div class="">
+        <div class="category">
           <label v-for="category in categories" :key="category">
             <input
               type="radio"
