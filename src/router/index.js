@@ -25,6 +25,11 @@ const router = createRouter({
       path:  '/:pathMatch(.*)*',
       name:  'NotFound',
       component: NotFoundPage,
+    },
+    {
+      path:  '/category/:pathMatch(.*)*',
+      name:  'NotFoundcategory',
+      component: NotFoundPage,
     }
   ],
 });

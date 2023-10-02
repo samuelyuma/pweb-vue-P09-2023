@@ -34,7 +34,8 @@
       <div v-for="category in categories" :key="category" class="relative">
         <CategoryCard
           :categories="category"
-          @add-note="redirectToCategory(category)"
+          @add-note=redirectToCategory(category)
+          @remove-category=removeCategory(category)
         />
         <router-link
           :to="{ name: 'category', params: { categoryName: category } }"
@@ -75,6 +76,13 @@ export default {
       localStorage.setItem('categories', JSON.stringify(this.categories));
 
       this.category_custom = '';
+    },
+    removeCategory(category) {
+      const index = this.categories.indexOf(category);
+      if (index !== -1) {
+        this.categories.splice(index, 1);
+        localStorage.setItem('categories', JSON.stringify(this.categories));
+      }
     },
     redirectToCategory(category) {
       this.$router.push({
