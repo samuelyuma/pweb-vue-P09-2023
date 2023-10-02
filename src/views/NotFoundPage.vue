@@ -19,4 +19,8 @@
   </main>
 </template>
 
-<script></script>
+<script>
+export default {
+    name: "NotFoundPage",
+}
+</script>
