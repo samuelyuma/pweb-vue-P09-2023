@@ -34,7 +34,7 @@
       <router-link
         v-for="category in categories"
         :key="category"
-        :to="{ name: 'category', params: { name: category } }"
+        :to="{ name: 'category', params: { categoryName: category } }"
       >
         <CategoryCard :categories="category" />
       </router-link>
