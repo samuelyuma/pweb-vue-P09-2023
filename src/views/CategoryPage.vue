@@ -159,6 +159,7 @@ export default {
       ],
       name: '', // name of the category
       categoryName: '',
+      categoryTaskCount: 0,
     };
   },
   computed: {
@@ -171,6 +172,10 @@ export default {
       return this.todo.filter(
         (task) => !task.done && task.category === this.categoryName
       );
+    },
+    categoryTaskCount() {
+      return this.todo.filter((task) => task.category === this.categoryName)
+        .length;
     },
   },
   methods: {

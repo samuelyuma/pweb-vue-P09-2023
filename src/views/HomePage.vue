@@ -31,13 +31,16 @@
     <section
       class="grid grid-cols-1 gap-4 xl:grid-cols-4 xl:gap-10 lg:grid-cols-3 lg:gap-8 md:grid-cols-2 md:gap-6 transition-all"
     >
-      <router-link
-        v-for="category in categories"
-        :key="category"
-        :to="{ name: 'category', params: { categoryName: category } }"
-      >
-        <CategoryCard :categories="category" />
-      </router-link>
+      <div v-for="category in categories" :key="category" class="relative">
+        <CategoryCard
+          :categories="category"
+          @add-note="redirectToCategory(category)"
+        />
+        <router-link
+          :to="{ name: 'category', params: { categoryName: category } }"
+        >
+        </router-link>
+      </div>
     </section>
   </main>
 </template>
@@ -51,14 +54,13 @@ export default {
     CategoryCard,
     NavbarComponent,
   },
-  data: () => {
+  data() {
     return {
       name: '',
       category_custom: '',
       categories: ['Daily', 'Work'],
     };
   },
-
   methods: {
     addCategory() {
       if (
@@ -73,6 +75,12 @@ export default {
       localStorage.setItem('categories', JSON.stringify(this.categories));
 
       this.category_custom = '';
+    },
+    redirectToCategory(category) {
+      this.$router.push({
+        name: 'category',
+        params: { categoryName: category },
+      });
     },
   },
   mounted() {

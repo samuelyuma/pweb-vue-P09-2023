@@ -5,11 +5,16 @@
     <div class="flex flex-col gap-40">
       <h1 class="text-white text-3xl font-semibold">{{ categories }}</h1>
       <div class="flex items-center justify-between">
-        <p class="text-white text-xl font-medium">{{ taskCount }} notes</p>
         <button
-          class="text-blue-500 bg-white font-semibold text-4xl rounded-full py-1 px-3"
+          class="text-blue-500 bg-white font-semibold text-2xl rounded-full py-2.5 px-4"
         >
-          +
+          <font-awesome-icon icon="fa-solid fa-trash" />
+        </button>
+        <button
+          @click="addNote"
+          class="text-blue-500 bg-white font-semibold text-2xl rounded-full py-2.5 px-4"
+        >
+          <font-awesome-icon icon="fa-solid fa-plus" />
         </button>
       </div>
     </div>
@@ -21,6 +26,11 @@ export default {
   props: {
     categories: String,
     taskCount: Number,
+  },
+  methods: {
+    addNote() {
+      this.$emit('add-note'); // Emit event to notify parent component
+    },
   },
 };
 </script>
