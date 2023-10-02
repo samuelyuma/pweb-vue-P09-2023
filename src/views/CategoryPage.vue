@@ -2,28 +2,25 @@
   <main class="mx-32 my-20 font-poppins">
     <div class="flex justify-between items-center">
       <h1 class="font-bold text-slate-800 text-4xl py-2">{{ name }}</h1>
-      <router-link to="/"
-        ><button
-          class="text-white font-medium text-md px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition-all"
-        >
+
+      <router-link to="/"><button
+          class="text-white font-medium text-md px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition-all">
           Back to home
-        </button></router-link
-      >
+        </button></router-link>
     </div>
+    <div class="text-black font-medium text-md pt-1">
+        {{ date }}
+        <br>
+        {{ time }}
+      </div>
     <section>
       <form @submit.prevent="addTask">
         <h3 class="mt-12 font-semibold text-2xl mb-3">Add new task:</h3>
         <div class="flex gap-2">
-          <input
-            type="text"
-            v-model="content_input"
-            placeholder="e.g. pemweb dapet A"
-            class="w-full border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-600 px-3 py-2 focus:ring-0 focus:border-transparent focus:outline-slate-400"
-          />
-          <button
-            @click="addTask"
-            class="text-white font-medium text-lg px-12 py-2.5 rounded-xl bg-green-500 hover:bg-green-600 transition-all"
-          >
+          <input type="text" v-model="content_input" placeholder="e.g. pemweb dapet A"
+            class="w-full border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-600 px-3 py-2 focus:ring-0 focus:border-transparent focus:outline-slate-400" />
+          <button @click="addTask"
+            class="text-white font-medium text-lg px-12 py-2.5 rounded-xl bg-green-500 hover:bg-green-600 transition-all">
             <font-awesome-icon icon="fa-solid fa-plus" />
           </button>
         </div>
@@ -32,53 +29,36 @@
     <section class="flex flex-col gap-4 mt-16">
       <h2 class="font-semibold text-2xl">On-going Tasks</h2>
       <div class="flex-row gap-96">
-        <div
-          v-for="task in unfinishedTodo"
-          :key="task.createdAt"
-          :class="`todo-item ${task.done && 'done'}`"
-          class="flex items-center gap-2 mb-2"
-        >
+        <div v-for="task in unfinishedTodo" :key="task.createdAt" :class="`todo-item ${task.done && 'done'}`"
+          class="flex items-center gap-2 mb-2">
           <!-- Render task details as before -->
           <p
-            class="w-5/12 border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 text-center"
-          >
+            class="w-5/12 border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 text-center">
             {{ task.timestamp_date }}
           </p>
           <p
-            class="w-1/6 border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 text-center"
-          >
+            class="w-1/6 border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 text-center">
             {{ task.timestamp_time }}
           </p>
           <input
             class="w-screen border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 focus:ring-0 focus:border-transparent focus:outline-slate-400"
-            type="text"
-            v-model="task.content"
-          />
+            type="text" v-model="task.content" />
           <label class="relative">
-            <input
-              class="appearance-none bg-slate-200 py-5 px-6 rounded-xl cursor-pointer"
-              type="checkbox"
-              v-model="task.done"
-            />
+            <input class="appearance-none bg-slate-200 py-5 px-6 rounded-xl cursor-pointer" type="checkbox"
+              v-model="task.done" />
             <span
-              class="text-lg absolute inset-0 flex items-center justify-center bg-green-500 text-white rounded-xl cursor-pointer hover:bg-green-600 transition-all"
-            >
+              class="text-lg absolute inset-0 flex items-center justify-center bg-green-500 text-white rounded-xl cursor-pointer hover:bg-green-600 transition-all">
               <font-awesome-icon icon="fa-solid fa-check" />
             </span>
           </label>
-          <button
-            @click="removeToDo(task)"
-            class="text-white font-medium text-lg px-4 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 transition-all"
-          >
+          <button @click="removeToDo(task)"
+            class="text-white font-medium text-lg px-4 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 transition-all">
             <font-awesome-icon icon="fa-solid fa-trash" />
           </button>
         </div>
 
         <!-- buat kalo gaada task -->
-        <div
-          v-if="unfinishedTodo.length === 0"
-          class="font-medium text-lg text-gray-600"
-        >
+        <div v-if="unfinishedTodo.length === 0" class="font-medium text-lg text-gray-600">
           There's no task at the moment, santai dulu ga sih :V
         </div>
       </div>
@@ -88,50 +68,32 @@
       <h2 class="font-semibold text-2xl">Completed Tasks</h2>
       <div class="flex-row gap-3">
         <!-- Render completed tasks or a message if there are none -->
-        <div
-          v-if="completedTodo.length === 0"
-          class="font-medium text-lg text-gray-600"
-        >
+        <div v-if="completedTodo.length === 0" class="font-medium text-lg text-gray-600">
           There's no completed task at the moment.
         </div>
-        <div
-          v-for="task in completedTodo"
-          :key="task.createdAt"
-          :class="`todo-item ${task.done && 'done'}`"
-          class="flex items-center gap-2 mb-2"
-        >
+        <div v-for="task in completedTodo" :key="task.createdAt" :class="`todo-item ${task.done && 'done'}`"
+          class="flex items-center gap-2 mb-2">
           <!-- Render task details as before -->
           <p
-            class="w-5/12 text-center border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2"
-          >
+            class="w-5/12 text-center border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2">
             {{ task.timestamp_date }}
           </p>
           <p
-            class="w-1/6 text-center border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2"
-          >
+            class="w-1/6 text-center border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2">
             {{ task.timestamp_time }}
           </p>
           <input
             class="w-screen border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 focus:ring-0 focus:border-transparent focus:outline-slate-400"
-            type="text"
-            v-model="task.content"
-          />
+            type="text" v-model="task.content" />
           <label class="relative">
-            <input
-              class="appearance-none py-5 px-6 rounded-xlcursor-pointer"
-              type="checkbox"
-              v-model="task.done"
-            />
+            <input class="appearance-none py-5 px-6 rounded-xlcursor-pointer" type="checkbox" v-model="task.done" />
             <span
-              class="text-lg absolute inset-0 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-xl cursor-pointer transition-all"
-            >
+              class="text-lg absolute inset-0 flex items-center justify-center bg-red-500 hover:bg-red-600 text-white rounded-xl cursor-pointer transition-all">
               <font-awesome-icon icon="fa-solid fa-x" />
             </span>
           </label>
-          <button
-            @click="removeToDo(task)"
-            class="text-white text-lg px-4 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 transition-all"
-          >
+          <button @click="removeToDo(task)"
+            class="text-white text-lg px-4 py-2.5 rounded-xl bg-red-500 hover:bg-red-600 transition-all">
             <font-awesome-icon icon="fa-solid fa-trash" />
           </button>
         </div>

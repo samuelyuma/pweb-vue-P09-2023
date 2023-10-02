@@ -2,7 +2,7 @@
   <section
     class="sticky top-0 py-4 bg-slate-200 justify-between items-center flex px-32 font-poppins"
   >
-    <h1 class="text-xl font-bold text-slate-800">Made With Vue. ⚡</h1>
+    <h1 class="text-xl font-bold text-slate-800">Mas inu plz kasi nilai A 🙏</h1>
     <ul
       class="flex gap-12 text-center justify-center font-medium text-lg text-slate-800 items-center"
     >
