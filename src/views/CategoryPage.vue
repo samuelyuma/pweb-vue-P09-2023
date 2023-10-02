@@ -158,14 +158,19 @@ export default {
         'Saturday',
       ],
       name: '', // name of the category
+      categoryName: '',
     };
   },
   computed: {
     completedTodo() {
-      return this.todo.filter((task) => task.done);
+      return this.todo.filter(
+        (task) => task.done && task.category === this.categoryName
+      );
     },
     unfinishedTodo() {
-      return this.todo.filter((task) => !task.done);
+      return this.todo.filter(
+        (task) => !task.done && task.category === this.categoryName
+      );
     },
   },
   methods: {
@@ -180,6 +185,7 @@ export default {
         createdAt: new Date().getTime(),
         timestamp_date: this.date,
         timestamp_time: this.time,
+        category: this.categoryName, // Include the category name
       };
 
       this.todo.push(newToDo);
@@ -188,6 +194,7 @@ export default {
 
       this.content_input = '';
     },
+
     removeToDo(task) {
       const index = this.todo.indexOf(task);
       if (index !== -1) {
@@ -240,7 +247,8 @@ export default {
     setInterval(this.updateTime, 1000);
   },
   created() {
-    this.name = this.$route.params.name;
+    this.categoryName = this.$route.params.categoryName;
+    this.name = this.categoryName;
   },
 };
 </script>

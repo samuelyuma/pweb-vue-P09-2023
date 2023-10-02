@@ -1,6 +1,6 @@
 <template>
   <NavbarComponent />
-  <main class="mx-32 mt-24">
+  <main class="mx-32 mt-24 font-poppins">
     <section>
       <h1 class="font-bold text-slate-800 text-4xl pb-8">
         Anggota Kelompok P09 :
