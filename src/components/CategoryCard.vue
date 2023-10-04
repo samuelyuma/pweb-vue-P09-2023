@@ -21,11 +21,11 @@ export default {
     categories: String,
     taskCount: Number,
   },
-  methods: {
+  methods: { // Emit ✅ 
     addNote() {
       this.$emit('add-note'); // Emit event to notify parent component
     },
-    removeCategory() {
+    removeCategory() { // Emit ✅ 
       this.$emit('remove-category'); // Emit event to notify parent component
     },
   },

@@ -5,9 +5,9 @@ import CategoryPage from '../views/CategoryPage.vue';
 import NotFoundPage from '../views/NotFoundPage.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
+  routes: [ // Navigation ✅
     {
-      path: '/',
+      path: '/', 
       name: 'home',
       component: HomePage,
     },
@@ -22,7 +22,7 @@ const router = createRouter({
       component: CategoryPage,
     },
     {
-      path:  '/:pathMatch(.*)*',
+      path:  '/:pathMatch(.*)*', // 404 Not Found ✅ 
       name:  'NotFound',
       component: NotFoundPage,
     },

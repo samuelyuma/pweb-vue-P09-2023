@@ -3,6 +3,7 @@
     <div class="flex justify-between items-center">
       <h1 class="font-bold text-slate-800 text-4xl py-2">{{ name }}</h1>
 
+      <!-- Routing ✅ -->
       <router-link to="/"><button
           class="text-white font-medium text-md px-6 py-3 rounded-xl bg-blue-500 hover:bg-blue-600 transition-all">
           Back to home
@@ -14,12 +15,17 @@
         {{ time }}
       </div>
     <section>
+      <!-- Event handling ✅ v-on (@submit.prevent): prevent reload -->
       <form @submit.prevent="addTask">
         <h3 class="mt-12 font-semibold text-2xl mb-3">Add new task:</h3>
         <div class="flex gap-2">
+
+          <!-- Input bindings ✅ v-model: automatically update variable content_input to user input -->
           <input type="text" v-model="content_input" placeholder="e.g. pemweb dapet A"
             class="w-full border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-600 px-3 py-2 focus:ring-0 focus:border-transparent focus:outline-slate-400" />
-          <button @click="addTask"
+          
+            <!-- Event handling ✅ v-on (@): calls method when button is clicked -->
+            <button @click="addTask"
             class="text-white font-medium text-lg px-12 py-2.5 rounded-xl bg-green-500 hover:bg-green-600 transition-all">
             <font-awesome-icon icon="fa-solid fa-plus" />
           </button>
@@ -29,8 +35,10 @@
     <section class="flex flex-col gap-4 mt-16">
       <h2 class="font-semibold text-2xl">On-going Tasks</h2>
       <div class="flex-row gap-96">
+        <!-- List rendering ✅ v-for: render array -->
         <div v-for="task in unfinishedTodo" :key="task.createdAt" :class="`todo-item ${task.done && 'done'}`"
           class="flex items-center gap-2 mb-2">
+
           <!-- Render task details as before -->
           <p
             class="w-5/12 border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2 text-center">
@@ -57,7 +65,7 @@
           </button>
         </div>
 
-        <!-- buat kalo gaada task -->
+        <!-- Conditional rendering ✅ v-if: only render if there's no task to do -->
         <div v-if="unfinishedTodo.length === 0" class="font-medium text-lg text-gray-600">
           There's no task at the moment, santai dulu ga sih :V
         </div>
@@ -67,12 +75,14 @@
     <section class="flex flex-col gap-5 mt-16">
       <h2 class="font-semibold text-2xl">Completed Tasks</h2>
       <div class="flex-row gap-3">
-        <!-- Render completed tasks or a message if there are none -->
+
+        <!-- Conditional rendering ✅ v-if: only render if there's no completed task -->
         <div v-if="completedTodo.length === 0" class="font-medium text-lg text-gray-600">
           There's no completed task at the moment.
         </div>
         <div v-for="task in completedTodo" :key="task.createdAt" :class="`todo-item ${task.done && 'done'}`"
           class="flex items-center gap-2 mb-2">
+
           <!-- Render task details as before -->
           <p
             class="w-5/12 text-center border-2 border-slate-400 rounded-xl bg-slate-200 font-medium text-lg text-slate-700 px-3 py-2">
@@ -106,10 +116,10 @@
 export default {
   data() {
     return {
-      todo: [], // initialize mt array for todo list
-      content_input: '', // initialize mt string for todo content
-      date: '', // initialize mt string for date
-      time: '', // initialize mt string for time
+      todo: [], // initialize empty array for todo list
+      content_input: '', // initialize empty string for todo content
+      date: '', // initialize empty string for date
+      time: '', // initialize empty string for time
       week: [
         'Sunday',
         'Monday',
@@ -124,83 +134,84 @@ export default {
       categoryTaskCount: 0,
     };
   },
-  computed: {
-    completedTodo() {
+  computed: { // keep UI in sync w/ data
+    completedTodo() { // filter completed to do array
       return this.todo.filter(
         (task) => task.done && task.category === this.categoryName
       );
     },
-    unfinishedTodo() {
+    unfinishedTodo() { // filter unfinished to do array
       return this.todo.filter(
         (task) => !task.done && task.category === this.categoryName
       );
     },
-    categoryTaskCount() {
+    categoryTaskCount() { // necessary when using v-if
       return this.todo.filter((task) => task.category === this.categoryName)
         .length;
     },
   },
   methods: {
     addTask() {
-      if (this.content_input.trim() === '') {
+      if (this.content_input.trim() === '') { // make sure user input is not an empty string
         return;
       }
 
       const newToDo = {
-        content: this.content_input,
-        done: false,
-        createdAt: new Date().getTime(),
+        content: this.content_input, // the content is content_input (v-model)
+        done: false, // declare that task is not done
+        createdAt: new Date().getTime(), // necessary to list tasks in order according to its created time
         timestamp_date: this.date,
         timestamp_time: this.time,
         category: this.categoryName, // Include the category name
       };
 
-      this.todo.push(newToDo);
+      this.todo.push(newToDo); // insert new task to array
 
-      localStorage.setItem('todo', JSON.stringify(this.todo));
+      localStorage.setItem('todo', JSON.stringify(this.todo)); // store to localstorage
 
-      this.content_input = '';
+      this.content_input = ''; // give empty string to content_input 
     },
 
     removeToDo(task) {
+      // take index of selected task
       const index = this.todo.indexOf(task);
-      if (index !== -1) {
-        this.todo.splice(index, 1);
-        localStorage.setItem('todo', JSON.stringify(this.todo));
+      if (index !== -1) { // check if task exists in array
+        this.todo.splice(index, 1); // remove one task
+        localStorage.setItem('todo', JSON.stringify(this.todo)); // update local storage
       }
     },
-    updateTime() {
-      const current_date = new Date();
-      this.date =
-        this.week[current_date.getDay()] +
+    updateTime() { 
+      const current_date = new Date(); // built in from JS
+      this.date = // formatting the date
+        this.week[current_date.getDay()] + // according to array week
         ', ' +
-        this.zeroPadding(current_date.getDate(), 2) +
+        this.zeroPadding(current_date.getDate(), 2) + 
         ' - ' +
-        this.zeroPadding(current_date.getMonth() + 1, 2) +
+        this.zeroPadding(current_date.getMonth() + 1, 2) + // since January = 0, we add 1
         ' - ' +
         this.zeroPadding(current_date.getFullYear(), 4) +
         ' ';
 
-      this.time =
+      this.time = // formatting the time  
         this.zeroPadding(current_date.getHours(), 2) +
         ':' +
         this.zeroPadding(current_date.getMinutes(), 2) +
         ':' +
         this.zeroPadding(current_date.getSeconds(), 2);
     },
-    zeroPadding(num, digit) {
+    zeroPadding(num, digit) { // formatting leading zeros
       let zero = '';
       for (let i = 0; i < digit; i++) {
         zero += '0';
       }
-      return (zero + num).slice(-digit);
+      return (zero + num).slice(-digit); // ensure has requested digits
     },
   },
-  watch: {
+  watch: { // watch changes
     todo: {
       deep: true,
       handler(newTodo) {
-        localStorage.setItem('todo', JSON.stringify(newTodo)); // Save the entire todo array to local storage
+        localStorage.setItem('todo', JSON.stringify(newTodo)); // save the entire todo array to local storage
       },
     },
   },
@@ -211,7 +222,7 @@ export default {
     }
 
     this.updateTime();
-    setInterval(this.updateTime, 1000);
+    setInterval(this.updateTime, 1000); // update every 1 second
   },
   created() {
     this.categoryName = this.$route.params.categoryName;
