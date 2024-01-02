@@ -1,4 +1,4 @@
-# pweb-vue-AB_09-2023
+# pweb-vue-P09-2023
 
 Repositori Praktikum Modul 1 & 2 Pemrograman Web tentang VueJS.
 
